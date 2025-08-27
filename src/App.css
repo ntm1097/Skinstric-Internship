@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -104,10 +103,28 @@ Main Page
   transition: transform 0.2s ease-in-out;
 }
 
+.button__border {
+  border: dashed 1px black;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 10px;
+  bottom: 10px;
+  pointer-events: none;
+  z-index: 100;
+  rotate: 45deg;
+  width: 28px;
+  height: 28px;
+}
+
 .buttons:hover {
   transform: scale(1.09);
 }
 
+.buttons:hover .button__border {
+  opacity: 0.3;
+  border-color: black;
+}
 
 .left__rectangle {
   position: absolute;
@@ -126,14 +143,60 @@ Main Page
 .rectangle__img {
   height: 500px;
 }
+
+/* Extra left rectangles */
+.left__rectangle--two {
+  opacity: 0;
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  z-index: -2;
+}
+.left__rectangle--two .rectangle__img {
+  height: 540px;
+  opacity: 0.7;
+}
+.left__rectangle--three {
+  opacity: 0;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: -3;
+}
+.left__rectangle--three .rectangle__img {
+  height: 580px;
+  opacity: 0.3;
+}
+
+/* Extra right rectangles */
+.right__rectangle--two {
+  opacity: 0;
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  z-index: -2;
+}
+.right__rectangle--two .rectangle__img {
+  height: 540px;
+  opacity: 0.7;
+}
+.right__rectangle--three {
+  opacity: 0;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: -3;
+}
+.right__rectangle--three .rectangle__img {
+  height: 580px;
+  opacity: 0.3;
+}
+
 /*
 
 FOOTER
 
 */
-
-footer {
-}
 
 .footer__text {
   font-size: 14px;
