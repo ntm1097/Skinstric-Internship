@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import "./App.css";
 import Nav from "./Components/Nav";
 import Main from "./Pages/Main";
@@ -16,6 +17,17 @@ function App() {
         </Routes>
       </div>
     </Router>
+=======
+import './App.css';
+import Nav from './Components/Nav';
+import Main from './Pages/Main';
+
+function App() {
+  return (
+    <div className="App">
+    <Main />
+    </div>
+>>>>>>> 9ab84175fa962b5d24209adcd4fea94683e938ae
   );
 }
 
