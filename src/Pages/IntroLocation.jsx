@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav from "../Components/Nav";
 import AnalysisHeading from "../Components/AnalysisHeading";
 import RotatingSquares from "../Components/RotatingSquares";
@@ -11,6 +12,7 @@ const IntroCity = () => {
   const [loading, setLoading] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setLocation(e.target.value);
@@ -51,7 +53,7 @@ const IntroCity = () => {
   };
 
   const handleProceed = () => {
-    // ...existing code...
+    navigate("/photo-upload");
   };
 
   return (
