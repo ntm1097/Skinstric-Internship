@@ -7,6 +7,8 @@ import FullCamera from "./Pages/FullCamera";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PhotoAnalizing from "./Pages/PhotoAnalizing";
 import CameraSetup from "./Pages/CameraSetup";
+import Analysis from "./Pages/Analysis";
+import Demographics from "./Pages/Demographics";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/photo-analizing" element={<PhotoAnalizing />} />
           <Route path="/camera-setup" element={<CameraSetup />} />
           <Route path="/full-camera" element={<FullCamera />} />
+          <Route path="/analysis" element={<Analysis />} />
+          <Route path="/demographics" element={<Demographics />} />
         </Routes>
       </div>
     </Router>

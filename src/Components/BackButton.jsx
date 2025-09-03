@@ -2,7 +2,7 @@ import React from "react";
 import backArrow from "../Assets/Left button polygon.svg";
 import { useNavigate } from "react-router-dom";
 
-const BackButton = ({ className = "", ...props }) => {
+const BackButton = ({ showButton = false, className = "", ...props }) => {
   const navigate = useNavigate();
 
   return (
@@ -20,7 +20,11 @@ const BackButton = ({ className = "", ...props }) => {
       >
         <img src={backArrow} alt="" />
       </button>
-      <h2 className="back__text">Back</h2>
+      <h2 className="back__text">BACK</h2>
+      <div className="additional__buttons">
+        {showButton && <button className="reset__button">RESET</button>}
+        {showButton && <button className="confirm__button">CONFIRM</button>}
+      </div>
     </div>
   );
 };

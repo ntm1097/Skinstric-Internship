@@ -56,7 +56,7 @@ const PhotoUpload = () => {
 
   return (
     <>
-      <Nav showButton={false} />
+      <Nav logoType="locationintro" showButton={false} />
       <AnalysisHeading />
       {showPermissionPrompt && (
         <div className="camera__access__popup">

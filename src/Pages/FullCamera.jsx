@@ -5,6 +5,7 @@ import BackButton from "../Components/BackButton";
 import SideButton from "../Components/SideButton";
 import proceedIcon from "../Assets/Button-polygon.svg";
 import BetterResults from "../Components/BetterResults";
+import Nav from "../Components/Nav";
 
 const FullCamera = () => {
   const videoRef = useRef(null);
@@ -44,16 +45,15 @@ const FullCamera = () => {
     setCapturedImage(null);
   };
 
-  const handleProceed = () => {
-    
-  };
+  const handleProceed = () => {};
 
   return (
     <>
-      <div className="camera__header">
-        <h1 className="camera__title">SKINSTRIC</h1>
-        <img className="location__logo" src={LocationLogo} alt="" />
-      </div>
+      {!capturedImage ? (
+        <Nav className="full__camera" logoType="default" />
+      ) : (
+        <Nav className="full__camera" logoType="analysis" />
+      )}
       <div className="camera__section">
         {!capturedImage && (
           <button className="camera__bar" onClick={handleCapture}>

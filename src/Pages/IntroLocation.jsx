@@ -58,7 +58,7 @@ const IntroCity = () => {
 
   return (
     <>
-      <Nav showButton={false} />
+      <Nav logoType="locationintro" />
       <AnalysisHeading />
       <div className="intro__section">
         <RotatingSquares />

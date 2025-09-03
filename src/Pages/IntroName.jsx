@@ -30,7 +30,7 @@ const Intro = () => {
 
   return (
     <>
-      <Nav showButton={false} />
+      <Nav logoType="locationintro" />
       <AnalysisHeading />
       <div className="intro__section">
         <RotatingSquares />

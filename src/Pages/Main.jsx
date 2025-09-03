@@ -5,7 +5,7 @@ import MainTitle from '../Components/MainTitle'
 const Main = () => {
   return (
     <div>
-      <Nav showButton={true} />
+      <Nav logoType='locationintro' showButton={true} />
       <MainTitle />
     </div>
   )
