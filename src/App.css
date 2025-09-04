@@ -1652,7 +1652,7 @@ large tablets, small laptops
   .demographics__back-button {
     margin-top: 54px;
   }
-  .camera__bar {
+  .photo__instructions{
     display: none;
   }
   .demo__squares-group {
@@ -1757,6 +1757,13 @@ large tablets, small laptops
   .permission__buttons {
     justify-content: center;
     font-size: 12px;
+  }
+
+  /* fullscreen camera page */
+
+  .camera__bar {
+    left: 0%;
+    top: 87%;
   }
 
   /* demographics page */
@@ -1887,6 +1894,20 @@ large tablets, small laptops
     font-size: 20px;
   }
 
+  /* fullscreen camera page */
+
+  .camera__bar {
+    display: flex;
+    flex-direction: column;
+    top: 85%;
+  }
+  .camera__button--text {
+    font-size: 12px;
+  }
+  .fullcamera__proceed--button{
+    margin-top: 20px;
+  }
+
   /* demographics page */
   .demographics__container {
     width: 100%;
@@ -1911,6 +1932,9 @@ large tablets, small laptops
   }
   .demo__display--percentage {
     display: none;
+  }
+  .demographic__confidence{
+    margin-bottom: 16px;
   }
   .back__text--paragraph {
     font-size: 10px;

@@ -158,7 +158,7 @@ const FullCamera = () => {
             <div className="camera__buttons--after">
               <BackButton className="fullcamera__back--button" />
               <SideButton
-                label="Proceed"
+                label="PROCEED"
                 icon={proceedIcon}
                 onClick={handleProceed}
                 className="fullcamera__proceed--button"
