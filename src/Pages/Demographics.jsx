@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import Nav from "../Components/Nav";
 import RacePercentage from "../Components/RacePercentage";
 import SelectableBox from "../Components/SelectableBox";
@@ -19,38 +20,80 @@ const demoboxes = [
   },
 ];
 
-const raceItems = [
-  { label: "East Asian", confidence: "96%" },
-  { label: "White", confidence: "80%" },
-  { label: "Black", confidence: "45%" },
-  { label: "South Asian", confidence: "45%" },
-  { label: "Latino Hispanic", confidence: "45%" },
-  { label: "South East Asian", confidence: "45%" },
-  { label: "Middle Eastern", confidence: "45%" },
-];
+const getDynamicItems = (key, fallback) => {
+  const stored = localStorage.getItem(key);
+  try {
+    const parsed = stored ? JSON.parse(stored) : fallback;
+    return Array.isArray(parsed) &&
+      parsed.length > 0 &&
+      parsed[0].label &&
+      parsed[0].confidence
+      ? parsed
+      : fallback;
+  } catch {
+    return fallback;
+  }
+};
 
-const ageItems = [
-  { label: "0-9", confidence: "12%" },
-  { label: "10-19", confidence: "56%" },
-  { label: "20-29", confidence: "22%" },
-  { label: "30-39", confidence: "10%" },
-  { label: "40-49", confidence: "5%" },
-  { label: "50-59", confidence: "10%" },
-  { label: "60-69", confidence: "8%" },
-  { label: "70+", confidence: "0%" },
-];
-
-const sexItems = [
-  { label: "Male", confidence: "40%" },
-  { label: "Female", confidence: "60%" },
-];
+// Example: get items from localStorage and sort by confidence descending
+const getSortedItems = (key) => {
+  const items = JSON.parse(localStorage.getItem(key) || "[]");
+  return items.sort((a, b) => {
+    // Remove % and compare as numbers
+    const aVal = parseFloat(a.confidence.replace("%", ""));
+    const bVal = parseFloat(b.confidence.replace("%", ""));
+    return bVal - aVal;
+  });
+};
 
 const Demographics = () => {
+  const location = useLocation();
+
   const [selectedBox, setSelectedBox] = useState(0);
-  const [selectedRace, setSelectedRace] = useState(0);
+  const [selectedIndexes, setSelectedIndexes] = useState([0, 0, 0]); // [race, age, sex]
+
+  const raceItems =
+    location.state?.raceItems &&
+    Array.isArray(location.state.raceItems) &&
+    location.state.raceItems.length > 0
+      ? location.state.raceItems
+      : getSortedItems("dynamicRaceItems");
+  const ageItems =
+    location.state?.ageItems &&
+    Array.isArray(location.state.ageItems) &&
+    location.state.ageItems.length > 0
+      ? location.state.ageItems
+      : getSortedItems("dynamicAgeItems");
+  const sexItems =
+    location.state?.sexItems &&
+    Array.isArray(location.state.sexItems) &&
+    location.state.sexItems.length > 0
+      ? location.state.sexItems
+      : getSortedItems("dynamicSexItems");
 
   const items =
     selectedBox === 1 ? ageItems : selectedBox === 2 ? sexItems : raceItems;
+  const safeSelectedIndex = Math.min(
+    selectedIndexes[selectedBox],
+    items.length - 1
+  );
+
+  const confidenceStr = items[safeSelectedIndex]?.confidence || "0%";
+  const confidenceValue = parseInt(confidenceStr.replace("%", ""), 10);
+
+  if (!items || items.length === 0) {
+    return (
+      <>
+        <Nav logoType="analysis" />
+        <div className="demographics__header">
+          <span className="ai__label">A.I. ANALYSIS</span>
+          <h1 className="demographics__title">DEMOGRAPHICS</h1>
+          <span className="demographics__subtitle">No data available</span>
+        </div>
+        <BackButton className="demographics__back-button" showButton={true} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -67,14 +110,17 @@ const Demographics = () => {
               <SelectableBox
                 key={box.label}
                 selected={selectedBox === idx}
-                onClick={() => {
-                  setSelectedBox(idx);
-                  setSelectedRace(0);
-                }}
+                onClick={() => setSelectedBox(idx)}
                 className="demo__box"
               >
                 <div className="race__selected--title">
-                  <span>{box.title}</span>
+                  <span>
+                    {
+                      (idx === 0 ? raceItems : idx === 1 ? ageItems : sexItems)[
+                        selectedIndexes[idx]
+                      ]?.label
+                    }
+                  </span>
                 </div>
                 <div className="selected__title">
                   <span>{box.label}</span>
@@ -84,13 +130,18 @@ const Demographics = () => {
           </div>
           <div className="demographic__display">
             <h2 className="demo__display--title">
-              {selectedBox === 1
-                ? `${items[selectedRace].label} y.o.` // Custom age display format
-                : items[selectedRace].label}
+              {items[safeSelectedIndex]?.label
+                ? selectedBox === 1
+                  ? `${items[safeSelectedIndex].label} y.o.`
+                  : items[safeSelectedIndex].label
+                : ""}
             </h2>
-            <span className="demo__display--percentage">
+            <span
+              className="demo__display--percentage"
+              style={{ "--percent": confidenceValue }}
+            >
               <span className="demo__display--percentage-value">
-                {items[selectedRace].confidence}
+                {confidenceStr}
               </span>
             </span>
           </div>
@@ -103,13 +154,23 @@ const Demographics = () => {
             </div>
             <RacePercentage
               items={items}
-              selectedIndex={selectedRace}
-              onSelect={setSelectedRace}
+              selectedIndex={safeSelectedIndex}
+              onSelect={(idx) => {
+                setSelectedIndexes((prev) => {
+                  const updated = [...prev];
+                  updated[selectedBox] = idx;
+                  return updated;
+                });
+              }}
             />
           </div>
         </div>
       </div>
-      <BackButton className="demographics__back-button" showButton={true} />
+      <BackButton
+        className="demographics__back-button"
+        showButton={true}
+        showParagraph={true}
+      />
     </>
   );
 };

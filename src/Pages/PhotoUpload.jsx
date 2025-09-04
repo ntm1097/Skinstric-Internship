@@ -7,6 +7,8 @@ import BackButton from "../Components/BackButton";
 import PhotoScan from "../Assets/camera-svg.svg";
 import photoUpload from "../Assets/gallery-svg.svg";
 import PinArrow from "../Assets/pin line.svg";
+import PhotoAnalizing from "../Pages/PhotoAnalizing";
+import CameraSetup from "./CameraSetup";
 
 const PhotoUpload = () => {
   const videoRef = useRef(null);
@@ -14,7 +16,12 @@ const PhotoUpload = () => {
   const [cameraActive, setCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState("");
   const [showPermissionPrompt, setShowPermissionPrompt] = useState(false);
+  const [isAnalysing, setIsAnalysing] = useState(false);
+  const [showCameraSetup, setShowCameraSetup] = useState(false);
   const navigate = useNavigate();
+
+  const API_ENDPOINT =
+    "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo";
 
   const handleScanFaceClick = () => {
     setShowPermissionPrompt(true);
@@ -26,8 +33,11 @@ const PhotoUpload = () => {
     try {
       await navigator.mediaDevices.getUserMedia({ video: true });
       setShowPermissionPrompt(false);
-      setCameraActive(false);
-      navigate("/full-camera");
+      setShowCameraSetup(true);
+      setTimeout(() => {
+        setShowCameraSetup(false);
+        navigate("/full-camera");
+      }, 2000);
     } catch (err) {
       setCameraError("Camera access denied or not available.");
       setCameraActive(false);
@@ -37,22 +47,94 @@ const PhotoUpload = () => {
 
   const handleGalleryClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; 
+      fileInputRef.current.value = "";
       fileInputRef.current.click();
     }
   };
 
-  const handleFileChange = (e) => {
+  const analyzeImageAndNavigate = async (base64Image) => {
+    setIsAnalysing(true);
+    try {
+      const response = await fetch(API_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ image: base64Image }),
+      });
+
+      const rawText = await response.text();
+      let apiResponse;
+      try {
+        apiResponse = JSON.parse(rawText);
+      } catch (jsonErr) {
+        setCameraError("API returned invalid JSON.");
+        setIsAnalysing(false);
+        return;
+      }
+
+      const { data } = apiResponse;
+      const toPercent = (val) => `${Math.round(Number(val) * 100)}%`;
+
+      const raceItems =
+        data?.race && typeof data.race === "object" && !Array.isArray(data.race)
+          ? Object.entries(data.race).map(([label, value]) => ({
+              label: label
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase()),
+              confidence: toPercent(value),
+            }))
+          : [];
+      const ageItems =
+        data?.age && typeof data.age === "object" && !Array.isArray(data.age)
+          ? Object.entries(data.age).map(([label, value]) => ({
+              label,
+              confidence: toPercent(value),
+            }))
+          : [];
+      const sexItems =
+        data?.gender &&
+        typeof data.gender === "object" &&
+        !Array.isArray(data.gender)
+          ? Object.entries(data.gender).map(([label, value]) => ({
+              label: label.charAt(0).toUpperCase() + label.slice(1),
+              confidence: toPercent(value),
+            }))
+          : [];
+
+      localStorage.setItem("dynamicRaceItems", JSON.stringify(raceItems));
+      localStorage.setItem("dynamicAgeItems", JSON.stringify(ageItems));
+      localStorage.setItem("dynamicSexItems", JSON.stringify(sexItems));
+
+      setTimeout(() => {
+        setIsAnalysing(false);
+        navigate("/analysis"); // changed from "/demographics"
+      }, 3000);
+    } catch (err) {
+      setCameraError("Failed to analyze image.");
+      setIsAnalysing(false);
+    }
+  };
+
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
-        
-        console.log("Selected image data URL:", event.target.result);
+      reader.onload = async (event) => {
+        const base64Image = event.target.result.split(",")[1];
+        await analyzeImageAndNavigate(base64Image);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  if (isAnalysing) {
+    return <PhotoAnalizing />;
+  }
+
+  if (showCameraSetup) {
+    return <CameraSetup />;
+  }
 
   return (
     <>

@@ -24,19 +24,56 @@ const MainTitle = () => {
   const [leftHovered, setLeftHovered] = useState(false);
   const [rightHovered, setRightHovered] = useState(false);
 
+  const movement = useRef({
+    leftX: 250,
+    rightX: -325,
+    leftSkincareX: 160,
+    rightSkincareX: -160,
+  });
+
   useEffect(() => {
-    // Animate both headings on mount
     gsap.fromTo(
       [mainTitleRef.current, skincareRef.current],
       { opacity: 0, y: 40 },
       { opacity: 1, y: 0, duration: 1.5, stagger: 0.5, ease: "power2.out" }
     );
+
+    // Responsive GSAP matchMedia for side-to-side movement
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1200px)", () => {
+      movement.current = {
+        leftX: 250,
+        rightX: -325,
+        leftSkincareX: 160,
+        rightSkincareX: -160,
+      };
+    });
+
+    mm.add("(max-width: 1199px)", () => {
+      movement.current = {
+        leftX: 0,
+        rightX: 0,
+        leftSkincareX: 0,
+        rightSkincareX: 0,
+      };
+    });
+
+    return () => mm.kill();
   }, []);
 
   const handleRightHover = () => {
     setRightHovered(true);
-    gsap.to(mainTitleRef.current, { x: -325, duration: 1, ease: "power2.out" });
-    gsap.to(skincareRef.current, { x: -160, duration: 1, ease: "power2.out" });
+    gsap.to(mainTitleRef.current, {
+      x: movement.current.rightX,
+      duration: 1,
+      ease: "power2.out",
+    });
+    gsap.to(skincareRef.current, {
+      x: movement.current.rightSkincareX,
+      duration: 1,
+      ease: "power2.out",
+    });
     gsap.to(leftButtonRef.current, {
       opacity: 0,
       duration: 0.4,
@@ -117,8 +154,16 @@ const MainTitle = () => {
 
   const handleLeftHover = () => {
     setLeftHovered(true);
-    gsap.to(mainTitleRef.current, { x: 250, duration: 1, ease: "power2.out" });
-    gsap.to(skincareRef.current, { x: 160, duration: 1, ease: "power2.out" });
+    gsap.to(mainTitleRef.current, {
+      x: movement.current.leftX,
+      duration: 1,
+      ease: "power2.out",
+    });
+    gsap.to(skincareRef.current, {
+      x: movement.current.leftSkincareX,
+      duration: 1,
+      ease: "power2.out",
+    });
     gsap.to(rightButtonRef.current, {
       opacity: 0,
       duration: 0.4,

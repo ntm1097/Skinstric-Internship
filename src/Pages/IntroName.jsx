@@ -12,7 +12,7 @@ const Intro = () => {
 
   const handleInputChange = (e) => {
     setName(e.target.value);
-    setError(""); // Clear error on change
+    setError(""); 
   };
 
   const isInvalid = (str) => /[^a-zA-Z\s]/.test(str);

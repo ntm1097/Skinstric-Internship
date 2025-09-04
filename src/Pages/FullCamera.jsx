@@ -6,11 +6,81 @@ import SideButton from "../Components/SideButton";
 import proceedIcon from "../Assets/Button-polygon.svg";
 import BetterResults from "../Components/BetterResults";
 import Nav from "../Components/Nav";
+import PhotoAnalizing from "../Pages/PhotoAnalizing";
+import { useNavigate } from "react-router-dom";
+import PhotoUpload from "./PhotoUpload";
 
 const FullCamera = () => {
+  const [isAnalysing, setIsAnalysing] = useState(false);
+  const navigate = useNavigate();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
+
+  const analyzeImageAndNavigate = async (base64Image) => {
+    setIsAnalysing(true);
+    try {
+      const response = await fetch(
+        "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ image: base64Image }),
+        }
+      );
+
+      const rawText = await response.text();
+      let apiResponse;
+      try {
+        apiResponse = JSON.parse(rawText);
+      } catch (jsonErr) {
+        setIsAnalysing(false);
+        return;
+      }
+
+      const { data } = apiResponse;
+      const toPercent = (val) => `${Math.round(Number(val) * 100)}%`;
+
+      const raceItems =
+        data?.race && typeof data.race === "object" && !Array.isArray(data.race)
+          ? Object.entries(data.race).map(([label, value]) => ({
+              label: label
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase()),
+              confidence: toPercent(value),
+            }))
+          : [];
+      const ageItems =
+        data?.age && typeof data.age === "object" && !Array.isArray(data.age)
+          ? Object.entries(data.age).map(([label, value]) => ({
+              label,
+              confidence: toPercent(value),
+            }))
+          : [];
+      const sexItems =
+        data?.gender &&
+        typeof data.gender === "object" &&
+        !Array.isArray(data.gender)
+          ? Object.entries(data.gender).map(([label, value]) => ({
+              label: label.charAt(0).toUpperCase() + label.slice(1),
+              confidence: toPercent(value),
+            }))
+          : [];
+
+      localStorage.setItem("dynamicRaceItems", JSON.stringify(raceItems));
+      localStorage.setItem("dynamicAgeItems", JSON.stringify(ageItems));
+      localStorage.setItem("dynamicSexItems", JSON.stringify(sexItems));
+
+      setTimeout(() => {
+        setIsAnalysing(false);
+        navigate("/analysis"); // changed from "/demographics"
+      }, 3000);
+    } catch (err) {
+      setIsAnalysing(false);
+    }
+  };
 
   useEffect(() => {
     let stream;
@@ -45,7 +115,15 @@ const FullCamera = () => {
     setCapturedImage(null);
   };
 
-  const handleProceed = () => {};
+  const handleProceed = async () => {
+    if (capturedImage) {
+      await analyzeImageAndNavigate(capturedImage);
+    }
+  };
+
+  if (isAnalysing) {
+    return <PhotoAnalizing />;
+  }
 
   return (
     <>

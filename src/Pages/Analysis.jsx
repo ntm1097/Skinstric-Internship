@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Nav from "../Components/Nav";
 import RotatingSquares from "../Components/RotatingSquares";
 import BackButton from "../Components/BackButton";
-import SideButton from "../Components/SideButton"; // import SideButton
-import proceedIcon from "../Assets/Button-polygon.svg"; // or use your summary icon if different
+import SideButton from "../Components/SideButton"; 
+import proceedIcon from "../Assets/Button-polygon.svg"; 
 
 const Analysis = () => {
   const navigate = useNavigate();

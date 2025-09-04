@@ -16,7 +16,7 @@ const IntroCity = () => {
 
   const handleInputChange = (e) => {
     setLocation(e.target.value);
-    setError(""); // Clear error on change
+    setError(""); 
   };
 
   const isInvalid = (str) => /[^a-zA-Z\s]/.test(str);
@@ -103,7 +103,7 @@ const IntroCity = () => {
             </p>
             <div style={{ position: "absolute", bottom: -93, right: 20 }}>
               <SideButton
-                label="Proceed"
+                label="PROCEED"
                 icon={proceedIcon}
                 onClick={handleProceed}
               />

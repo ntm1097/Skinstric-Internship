@@ -5,16 +5,19 @@ import LocationLogo from "../Assets/location camera.svg";
 import { Link } from "react-router-dom";
 
 const Nav = ({ showButton = false, logoType = "default", className }) => {
-  let logoSrc;
+  let logoSrc, logoClass;
   switch (logoType) {
     case "analysis":
       logoSrc = LocationAnalysis;
+      logoClass = "analysis-logo";
       break;
     case "locationintro":
       logoSrc = locationIntro;
+      logoClass = "";
       break;
     default:
       logoSrc = LocationLogo;
+      logoClass = "";
   }
 
   return (
@@ -24,7 +27,7 @@ const Nav = ({ showButton = false, logoType = "default", className }) => {
           <h1 className="company__name">SKINSTRIC</h1>
         </Link>
         <figure className="location__logo">
-          <img src={logoSrc} alt="Location" />
+          <img src={logoSrc} alt="Location" className={logoClass} />
         </figure>
       </div>
       <div className="discount__code">

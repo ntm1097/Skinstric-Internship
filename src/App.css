@@ -640,6 +640,28 @@ CAMERA ACCESS POPUP
   color: #444444;
 }
 
+/* 
+
+CAMERA SETUP PAGE
+
+*/
+
+.photo__instructions--black {
+  background: none;
+  color: #1a1b1c;
+  padding-bottom: 12px;
+}
+
+.photo__instructions--black .photo__instructions--title,
+.photo__instructions--black .photo__instructions--lists,
+.photo__instructions--black .photo__instructions--item {
+  color: #1a1b1c;
+}
+
+.photo__instructions--black .photo__instructions--item::before {
+  border-color: #1a1b1c;
+}
+
 .camera__setup {
   display: flex;
   flex-direction: column;
@@ -683,6 +705,11 @@ nav.full__camera {
 
 nav.full__camera .location__logo img {
   filter: invert(100%);
+}
+
+/* Only remove filter for analysis logo */
+nav.full__camera .location__logo img.analysis-logo {
+  filter: none !important;
 }
 
 .camera__bar {
@@ -1287,6 +1314,24 @@ DEMOGRAPHICS PAGE
   cursor: pointer;
 }
 
+.demographics__back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1920px;
+}
+
+.back__text--paragraph {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 350px;
+  font-weight: 400;
+  color: #a0a4ab;
+  font-size: 16px;
+  text-align: center;
+}
+
 .reset__button {
   border: solid 1px #1a1b1c;
   background: none;
@@ -1295,22 +1340,24 @@ DEMOGRAPHICS PAGE
   font-weight: 600;
   cursor: pointer;
   padding: 8px 20px;
-  position: absolute;
-  left: 82%;
+  margin-right: 12px;
 }
 
-.demographics__back-button {
-  
+.reset__button:hover {
+  background: #e1e1e2;
 }
 
-.confirm__button{
+.confirm__button:hover {
+  background: #2a2b2c;
+}
+
+.confirm__button {
   border: none;
   font-size: 14px;
-  background: #1A1B1C;
+  background: #1a1b1c;
   padding: 8px 20px;
   color: #fcfcfc;
-  position: absolute;
-  left: 90%;
+  cursor: pointer;
 }
 
 /* 
@@ -1329,4 +1376,523 @@ FOOTER
   padding-left: 20px;
   font-weight: 400;
   text-align: left;
+}
+
+/* 
+
+large tablets, small laptops
+
+*/
+
+@media (max-width: 1200px) {
+  /* Main Page */
+  .main-bar {
+    min-height: 70vh;
+    padding: 24px;
+  }
+  .left__rectangle {
+    transform: scale(0.8);
+    top: 30px;
+    left: -20px;
+  }
+  .left__rectangle--two {
+    transform: scale(0.8);
+    top: 10px;
+    left: -20px;
+  }
+  .left__rectangle--three {
+    transform: scale(0.8);
+    top: -10px;
+    left: -20px;
+  }
+  .right__rectangle {
+    transform: scale(0.8);
+    top: 30px;
+    right: -20px;
+  }
+  .right__rectangle--two {
+    transform: scale(0.8);
+    top: 10px;
+    right: -20px;
+  }
+  .right__rectangle--three {
+    transform: scale(0.8);
+    top: -10px;
+    right: -20px;
+  }
+  .footer__text {
+    padding-top: 36px;
+  }
+  .main__title {
+    font-size: 60px;
+    line-height: 80px;
+    margin-bottom: 24px;
+  }
+
+  /* photo upload page */
+
+  .photo__upload--section,
+  .photo__scan--section {
+    gap: 60px;
+    height: auto;
+    width: 100%;
+    max-width: 600px;
+    padding: 24px 0;
+  }
+  .AI__squares__one,
+  .AI__squares__two,
+  .AI__squares__three,
+  .local__squares__one,
+  .local__squares__two,
+  .local__squares__three {
+    height: 300px;
+  }
+  .photo__upload--img,
+  .photo__scan--img {
+    width: 100px;
+  }
+  .pin__arrow--camera {
+    top: -50px;
+    left: 60px;
+    height: 60px;
+  }
+  .pin__arrow--local {
+    top: 90px;
+    left: -30px;
+    height: 60px;
+  }
+  .photo__scan--title {
+    top: -60px;
+    left: 140px;
+    font-size: 12px;
+  }
+  .upload__title {
+    top: 140px;
+    left: -140px;
+    font-size: 12px;
+    max-width: 300px;
+  }
+  
+  /* demographics page */ 
+
+  .demographics__title {
+    font-size: 48px;
+  }
+  .back__text--paragraph {
+    padding: 0 75px;
+  }
+  .demographic__display {
+    width: 100%;
+    max-width: 500px;
+  }
+  .demo__selector {
+    width: 100%;
+    max-width: 150px;
+    margin-bottom: 64px;
+  }
+  .demographic__confidence {
+    width: 100%;
+    max-width: 150px;
+  }
+  .demo__display--percentage {
+    width: 200px;
+    height: 200px;
+  }
+  .confidence__title, .confidence__subject {
+    font-size: 14px;
+    padding: 0 4px;
+  }
+  .race__title, .race__confidence {
+    font-size: 14px;
+  }
+}
+
+/* Tablets and large phones */
+
+@media (max-width: 800px) {
+  /* Main Page */
+  .main__title {
+    font-size: 50px;
+    line-height: 48px;
+    margin-bottom: 16px;
+  }
+  .arrow {
+    max-width: 150px;
+    font-size: 12px;
+    gap: 8px;
+    padding: 12px;
+  }
+  .left__rectangle {
+    transform: scale(0.6);
+    top: 20px;
+    left: -40px;
+  }
+  .right__rectangle {
+    transform: scale(0.6);
+    top: 30px;
+    right: -40px;
+  }
+
+  .left__rectangle--two,
+  .left__rectangle--three,
+  .right__rectangle--two,
+  .right__rectangle--three {
+    display: none;
+  }
+
+  /* intro section */
+
+  .analysis__tag {
+    font-size: 14px;
+  }
+  .square__one,
+  .square__two,
+  .square__three {
+    height: 360px;
+  }
+  .name__input {
+    font-size: 36px;
+    max-width: 280px;
+    letter-spacing: -2px;
+    border-bottom: 1px solid #1a1b1c;
+    margin-bottom: 16px;
+  }
+  .intro__prompt {
+    font-size: 12px;
+    line-height: 20px;
+    opacity: 0.4;
+    margin-bottom: 12px;
+  }
+  .back__arrow {
+    margin-top: 24px;
+  }
+  .back__text {
+    font-size: 12px;
+    padding-left: 8px;
+  }
+  .proceed__text {
+    font-size: 12px;
+  }
+  .proceed__arrow {
+    padding: 20px;
+  }
+
+  /* photo upload page */
+
+  .AI__squares__one,
+  .AI__squares__two,
+  .AI__squares__three,
+  .local__squares__one,
+  .local__squares__two,
+  .local__squares__three {
+    height: 250px;
+  }
+  .photo__upload--section,
+  .photo__scan--section {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  /* demographics page */
+
+  .demographics__selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .demographics__title {
+    font-size: 36px;
+  }
+  .back__text--paragraph {
+    padding: 12px;
+    font-size: 14px;
+  }
+  .reset__button{
+    display: none;
+  }
+  .demographic__display {
+    width: 100%;
+    max-width: 300px;
+  }
+  .demo__display--title {
+    font-size: 32px;
+  }
+  .demo__selector {
+    width: 100%;
+    height: auto;
+    max-width: 115px;
+  }
+  .race__selected--title, .selected__title {
+    font-size: 14px;
+  }
+  .demographic__confidence {
+    width: 100%;
+    max-width: 150px;
+  }
+  .demo__display--percentage {
+    width: 100px;
+    height: 100px;
+  }
+  .confidence__title, .confidence__subject {
+    font-size: 8px;
+    padding: 0 4px;
+  }
+  .race__title, .race__confidence {
+    font-size: 10px;
+  }
+  .demographics__back-button {
+    margin-top: 54px;
+  }
+}
+
+/* phones */
+
+@media (max-width: 620px) {
+  /* Main Page */
+
+  .main__title {
+    font-size: 36px;
+    line-height: 32px;
+    margin-bottom: 8px;
+  }
+  .button__img,
+  .left__button {
+    width: 32px;
+    height: 32px;
+  }
+  .button__border {
+    display: none;
+  }
+
+  .left__rectangle,
+  .right__rectangle {
+    display: none;
+  }
+  .arrow {
+    max-width: 80px;
+    font-size: 8px;
+    gap: 4px;
+    padding: 6px;
+  }
+
+  /* intro section */
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .analysis__tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  /* photo upload page */
+
+  .photo__upload--section,
+  .photo__scan--section {
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 320px;
+  }
+  .AI__squares__one,
+  .AI__squares__two,
+  .AI__squares__three,
+  .local__squares__one,
+  .local__squares__two,
+  .local__squares__three {
+    display: none;
+  }
+  .upload__title {
+    top: 135px;
+    left: -5px;
+    font-size: 14px;
+    max-width: 200px;
+    text-align: center;
+  }
+  .pin__arrow--camera, .pin__arrow--local {
+    display: none;
+  }
+  .photo__scan--title {
+    top: -90px;
+    left: 15px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    max-width: 200px;
+  }
+  .camera__access__text{
+    padding: 8px 8px 16px 8px;
+    font-size: 14px;
+    text-align: center;
+  }
+  .camera__access__popup {
+    width: auto;
+    top: 40%;
+    right: 30%;
+    max-width: 200px;
+  }
+  .permission__buttons {
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  /* demographics page */
+ 
+  .demographics__header{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+  }
+  .demo__selector {
+    padding: 0px;
+    margin-bottom: 56px;
+  }
+  .race__selected--title, .selected__title {
+    font-size: 10px;
+  }
+  .demo__box {
+    padding: 0px;
+  }
+  .demographics__title {
+    font-size: 32px;
+  }
+  .demographic__display {
+    width: 100%;
+    max-width: 250px;
+    height: 40vh;
+  }
+  .demo__display--title {
+    font-size: 24px;
+  }
+  .demo__display--percentage {
+    width: 60px;
+    height: 60px;
+  }
+  .demographic__confidence {
+    width: 100%;
+    max-width: 120px;
+    height: 40vh;
+  }
+  .back__text--paragraph {
+    padding: 12px;
+    font-size: 12px;
+  }
+  .demographics__back-button {
+    padding: 0 12px;
+    margin-top: 72px;
+  }
+  .confirm__button {
+    padding: 6px 12px;
+  }
+
+}
+
+/* small phones */
+
+@media (max-width: 480px) {
+  /* Main Page */
+
+  .main-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .main__title {
+    font-size: 48px;
+    line-height: 64px;
+    text-align: center;
+  }
+  .arrow__right {
+    display: flex;
+    flex-direction: column;
+    padding-top: 64px;
+    align-items: center;
+    width: 80px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .button__img {
+    width: 40px;
+    height: 40px;
+  }
+  .arrow__left {
+    display: none;
+  }
+  .footer__text {
+    padding: 0;
+    text-align: center;
+    margin-top: 34px;
+  }
+
+  /* intro section */
+
+  .name__input {
+    font-size: 24px;
+    max-width: 220px;
+    letter-spacing: -1px;
+    border-bottom: 1px solid #1a1b1c;
+    margin-bottom: 12px;
+  }
+  .square__one,
+  .square__two,
+  .square__three {
+    height: 280px;
+  }
+  /* photo upload page */
+
+  .camera__access__popup {
+    width: auto;
+    top: 40%;
+    right: 20%;
+    max-width: 180px;
+  }
+
+  /* seting up camera screen*/
+
+  .photo__instructions--title, .photo__instructions--lists, .photo__instructions--item {
+    font-size: 10px;
+  }
+  .camera__scan--img{
+    width: 100px;
+  }
+  .camera__setup--title{
+    font-size: 20px;
+  }
+
+  /* demographics page */
+  .demographics__container{
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .demo__sekector {
+    width: 100%;
+    max-width: 100px;
+    margin: 0 auto;
+    padding: 0px;
+  }
+
+.demographics__selection {
+    width: 100%;
+  }
+  .demographics__title {
+    font-size: 24px;
+  }
+  .demographic__display {
+    display: none;
+  }
+  .demo__display--percentage{
+    display: none;
+  }
+  .back__text--paragraph {
+    font-size: 10px;
+    padding: 8px;
+  }
 }

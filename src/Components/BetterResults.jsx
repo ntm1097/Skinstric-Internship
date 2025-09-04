@@ -1,8 +1,8 @@
 import React from "react";
 
-const BetterResults = () => (
+const BetterResults = ({ variant }) => (
   <>
-    <div className="photo__instructions">
+    <div className={`photo__instructions${variant ? ` ${variant}` : ""}`}>
       <h2 className="photo__instructions--title">
         TO GET BETTER RESULTS MAKE SURE TO HAVE
       </h2>
