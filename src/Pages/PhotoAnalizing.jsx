@@ -5,7 +5,7 @@ const PhotoAnalizing = () => {
   return (
     <div className='photo__analizing'>
         <RotatingSquares />
-        <h2>PREPPARING YOUR ANALYSIS...</h2>
+        <h2>PREPARING YOUR ANALYSIS...</h2>
     </div>
   )
 }
