@@ -1472,8 +1472,8 @@ large tablets, small laptops
     font-size: 12px;
     max-width: 300px;
   }
-  
-  /* demographics page */ 
+
+  /* demographics page */
 
   .demographics__title {
     font-size: 48px;
@@ -1498,12 +1498,17 @@ large tablets, small laptops
     width: 200px;
     height: 200px;
   }
-  .confidence__title, .confidence__subject {
+  .confidence__title,
+  .confidence__subject {
     font-size: 14px;
     padding: 0 4px;
   }
-  .race__title, .race__confidence {
+  .race__title,
+  .race__confidence {
     font-size: 14px;
+  }
+  .camera__bar {
+    left: 30%;
   }
 }
 
@@ -1608,7 +1613,7 @@ large tablets, small laptops
     padding: 12px;
     font-size: 14px;
   }
-  .reset__button{
+  .reset__button {
     display: none;
   }
   .demographic__display {
@@ -1623,7 +1628,8 @@ large tablets, small laptops
     height: auto;
     max-width: 115px;
   }
-  .race__selected--title, .selected__title {
+  .race__selected--title,
+  .selected__title {
     font-size: 14px;
   }
   .demographic__confidence {
@@ -1634,15 +1640,26 @@ large tablets, small laptops
     width: 100px;
     height: 100px;
   }
-  .confidence__title, .confidence__subject {
+  .confidence__title,
+  .confidence__subject {
     font-size: 8px;
     padding: 0 4px;
   }
-  .race__title, .race__confidence {
+  .race__title,
+  .race__confidence {
     font-size: 10px;
   }
   .demographics__back-button {
     margin-top: 54px;
+  }
+  .camera__bar {
+    display: none;
+  }
+  .demo__squares-group {
+    transform: scale(0.8) translate(-62%, -60%);
+  }
+  .analysis__summary--button{
+    top: 538px;
   }
 }
 
@@ -1714,7 +1731,8 @@ large tablets, small laptops
     max-width: 200px;
     text-align: center;
   }
-  .pin__arrow--camera, .pin__arrow--local {
+  .pin__arrow--camera,
+  .pin__arrow--local {
     display: none;
   }
   .photo__scan--title {
@@ -1725,7 +1743,7 @@ large tablets, small laptops
     width: 100%;
     max-width: 200px;
   }
-  .camera__access__text{
+  .camera__access__text {
     padding: 8px 8px 16px 8px;
     font-size: 14px;
     text-align: center;
@@ -1742,8 +1760,8 @@ large tablets, small laptops
   }
 
   /* demographics page */
- 
-  .demographics__header{
+
+  .demographics__header {
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -1753,7 +1771,8 @@ large tablets, small laptops
     padding: 0px;
     margin-bottom: 56px;
   }
-  .race__selected--title, .selected__title {
+  .race__selected--title,
+  .selected__title {
     font-size: 10px;
   }
   .demo__box {
@@ -1790,7 +1809,6 @@ large tablets, small laptops
   .confirm__button {
     padding: 6px 12px;
   }
-
 }
 
 /* small phones */
@@ -1829,6 +1847,7 @@ large tablets, small laptops
     padding: 0;
     text-align: center;
     margin-top: 34px;
+    margin: 0 auto;
   }
 
   /* intro section */
@@ -1856,18 +1875,20 @@ large tablets, small laptops
 
   /* seting up camera screen*/
 
-  .photo__instructions--title, .photo__instructions--lists, .photo__instructions--item {
+  .photo__instructions--title,
+  .photo__instructions--lists,
+  .photo__instructions--item {
     font-size: 10px;
   }
-  .camera__scan--img{
+  .camera__scan--img {
     width: 100px;
   }
-  .camera__setup--title{
+  .camera__setup--title {
     font-size: 20px;
   }
 
   /* demographics page */
-  .demographics__container{
+  .demographics__container {
     width: 100%;
     max-width: 300px;
     margin: 0 auto;
@@ -1879,7 +1900,7 @@ large tablets, small laptops
     padding: 0px;
   }
 
-.demographics__selection {
+  .demographics__selection {
     width: 100%;
   }
   .demographics__title {
@@ -1888,11 +1909,23 @@ large tablets, small laptops
   .demographic__display {
     display: none;
   }
-  .demo__display--percentage{
+  .demo__display--percentage {
     display: none;
   }
   .back__text--paragraph {
     font-size: 10px;
     padding: 8px;
+  }
+  .demo__squares-group {
+    transform: scale(0.6) translate(-84%, -77%);
+  }
+  .analysis__container {
+    height: 70vh;
+  }
+  .analysis__back--button {
+    top: 515px;
+  }
+  .analysis__summary--button{
+    top: 515px;
   }
 }
